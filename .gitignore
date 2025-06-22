@@ -127,3 +127,8 @@ dist
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Prisma
+/prisma/migrations
+/prisma/*.db
+/prisma/*.db-journal
