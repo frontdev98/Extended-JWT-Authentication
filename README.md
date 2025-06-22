@@ -34,5 +34,50 @@ Tools:
 ## Features
 
 ## Get started
+1. Clone the project and go to its directory:
+
+```bash
+git clone https://github.com:frontdev98/Extended-JWT-Authentication.git
+```
+
+```bash
+cd extended-jwt-auth
+```
+
+2. Install dependencies
+```bash
+cd server && npm i
+cd ../client && npm i
+cd ..
+```
+
+3. Create new user and its database at PostgreSQL, for example:
+
+```bash
+sudo -u postgres psql
+```
+
+```sql
+CREATE USER userName WITH PASSWORD 'yourPassword' LOGIN;
+CREATE DATABASE userName WITH OWNER=userName;
+```
+
+4. Create file "**jwt-extended-auth/server/.env**" and add next strings to it:
+
+```bash
+DB_HOST="localhost"    # postgresql server's address
+DB_PORT=5432           # default port
+DB_USER="yourUsername" # your created user from step 2
+DB_PASS="yourPassword" # your created password for the user from step 2
+DB_NAME="databaseName" # created database from step 2
+
+PORT=5000 # The server will run on 5000 port, you can change
+
+JWT_ACCESS_SECRET=$(openssl rand -base64 32)  # Generate 256-bit key for access token
+JWT_REFRESH_SECRET=$(openssl rand -base64 32) # Generate 256-bit key for refresh token
+
+NODE_ENV=dev                 # Change it to "prod" if you don't want to see logs on console
+LOG_PATH='jwt-auth-log.json' # Path to log file (default "extended-jwt-auth/jwt-auth-log.json")
+```
 
 ## Tests
