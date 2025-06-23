@@ -22,7 +22,7 @@ class UserService {
         }
 
         // hash password 
-        const passwordHash = await bcrypt.hashSync(password, 3);
+        const passwordHash = await bcrypt.hash(password, 3);
 
         // create activation link
         const activationLink = uuid.v4()
@@ -43,9 +43,7 @@ class UserService {
         // generate token based on data of the user
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({...userDto})
-        const savedTokens = await tokenService.saveToken(userDto.id, tokens.refreshToken)
-
-        logger.info(`Create user ${email} with tokens ${savedTokens}`)
+        await tokenService.saveToken(userDto.id, tokens.refreshToken)
 
         return {...tokens, user: userDto}
     }
@@ -69,6 +67,30 @@ class UserService {
                 isActivated: true
             }
         })
+    }
+
+    async login(email, password) {
+        const user = await client.userModel.findFirst({
+            where: {
+                email: email
+            }
+        })
+
+        if (user === null) {
+            throw ApiError.BadRequest("Wrong email or password.")
+        }
+
+        const isCompaired = await bcrypt.compare(password, user.password)
+
+        if (!isCompaired) {
+            throw ApiError.BadRequest("Wrong email or password.")
+        }
+
+        const userDto = new UserDto(user)
+        const tokens = tokenService.generateTokens({...userDto})
+        await tokenService.saveToken(userDto.id, tokens.refreshToken)
+
+        return {...tokens, user: userDto}
     }
 }
 
