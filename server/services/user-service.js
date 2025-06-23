@@ -30,6 +30,7 @@ class UserService {
         const user = await client.userModel.create({
             data: {
                 email,
+                activationLink,
                 password: passwordHash,
             }
         })
@@ -46,6 +47,27 @@ class UserService {
         logger.info(`Create user ${email} with tokens ${savedTokens}`)
 
         return {...tokens, user: userDto}
+    }
+
+    async activate(activationLink) {
+        const user = await client.userModel.findFirst({
+            where: {
+                activationLink
+            }
+        })
+
+        if (user === null) {
+            throw new Error("Incorrect activation link.")
+        }
+
+        await client.userModel.update({
+            where: {
+                id: user.id
+            },
+            data: {
+                isActivated: true
+            }
+        })
     }
 }
 

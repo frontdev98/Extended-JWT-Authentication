@@ -78,6 +78,7 @@ SMTP_PORT=587                  # smtp port (unsecure)
 SMTP_USER="yandexuser"           # user
 SMTP_PASS="dfgdsfg76787fdsghdsh"   # user's password or application password
 API_URL="http://localhost:5000"       # URL that will be sent in mail text body
+CLIENT_URL="http://localhost:3000"    # Redirect to this host after account activation (to Frontend)
 ```
 
 Run database migration using Prisma:
