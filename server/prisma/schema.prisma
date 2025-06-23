@@ -28,5 +28,5 @@ model TokenModel {
   id           Int       @id @default(autoincrement())
   refreshToken String
   user         UserModel @relation(fields: [userModelId], references: [id])
-  userModelId  Int
+  userModelId  Int       @unique
 }
