@@ -24,6 +24,7 @@ Modules:
 - [react](https://www.npmjs.com/package/react)
 - [prisma](https://www.prisma.io/)
 - [nodemon](https://www.npmjs.com/package/nodemon)
+- [nodemailer](https://www.npmjs.com/package/nodemailer)
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [bcrypt](https://www.npmjs.com/package/bcrypt)
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
