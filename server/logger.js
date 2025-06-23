@@ -9,16 +9,19 @@ const logger = createLogger({
     defaultMeta: {'service': 'extended-jwt'},
     format: format.json(),
     transports: [
-        new transports.File({
-            filename: process.env.LOG_PATH
+        // new transports.File({
+        //     filename: process.env.LOG_PATH
+        // })
+        new transports.Console({
+            format: format.simple()
         })
     ]
 });
 
-if (process.env.NODE_ENV === 'dev') {
-    logger.add(new transports.Console({
-        format: format.simple()
-    }));
-}
+// if (process.env.NODE_ENV === 'dev') {
+//     logger.add(new transports.Console({
+//         format: format.simple()
+//     }));
+// }
 
 module.exports = logger;
