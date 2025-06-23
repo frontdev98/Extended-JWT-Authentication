@@ -11,7 +11,7 @@ async function App() {
     app.use(express.json());
     app.use(cookieParser());
     app.use(cors());
-    app.use(router);
+    app.use('/api', router);
 
     try {
         app.listen(process.env.PORT, () => {
