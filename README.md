@@ -67,6 +67,10 @@ DATABASE_URL="postgresql://USERNAME:PASSWORD@localhost:5432/DATABASE/?schema=SCH
 
 # Application port
 PORT=5000
+
+# Random secrets for access and refresh tokens
+JWT_ACCESS_SECRET=$(openssl rand -base64 32)
+JWT_REFRESH_SECRET=$(openssl rand -base64 32)
 ```
 
 Run database migration using Prisma:
