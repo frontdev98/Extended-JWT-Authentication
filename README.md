@@ -71,6 +71,13 @@ PORT=5000
 # Random secrets for access and refresh tokens
 JWT_ACCESS_SECRET=$(openssl rand -base64 32)
 JWT_REFRESH_SECRET=$(openssl rand -base64 32)
+
+# Mail service settings (example)
+SMTP_HOST="smtp.yandex.ru"        # your smtp server
+SMTP_PORT=587                  # smtp port (unsecure)
+SMTP_USER="yandexuser"           # user
+SMTP_PASS="dfgdsfg76787fdsghdsh"   # user's password or application password
+API_URL="http://localhost:5000"       # URL that will be sent in mail text body
 ```
 
 Run database migration using Prisma:
