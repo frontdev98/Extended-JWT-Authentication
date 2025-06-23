@@ -13,3 +13,20 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model UserModel {
+  id             Int     @id @default(autoincrement())
+  email          String  @unique
+  password       String
+  isActivated    Boolean @default(false)
+  activationLink String?
+
+  TokenModel TokenModel[]
+}
+
+model TokenModel {
+  id           Int       @id @default(autoincrement())
+  refreshToken String
+  user         UserModel @relation(fields: [userModelId], references: [id])
+  userModelId  Int
+}

@@ -7,6 +7,10 @@ require('dotenv').config();
 async function App() {
     const app = express();
 
+    app.use(express.json());
+    app.use(cookieParser());
+    app.use(cors());
+
     try {
         app.listen(process.env.PORT, () => {
             logger.info(`Server started on ${process.env.PORT} port.`)

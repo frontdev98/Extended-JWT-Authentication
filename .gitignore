@@ -129,6 +129,5 @@ dist
 !.yarn/versions
 
 # Prisma
-/prisma/migrations
-/prisma/*.db
-/prisma/*.db-journal
+/server/prisma/migrations
+/server/generated
