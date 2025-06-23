@@ -19,7 +19,7 @@ class UserController {
             return res.json(userData)
 
         } catch (e) {
-            logger.error(e.message)
+            next(e);
         }
     }
 
@@ -27,7 +27,7 @@ class UserController {
         try {
 
         } catch (e) {
-            
+            next(e);
         }
     }
 
@@ -35,7 +35,7 @@ class UserController {
         try {
 
         } catch (e) {
-            
+            next(e);
         }
     }
 
@@ -46,8 +46,7 @@ class UserController {
             return res.redirect(process.env.CLIENT_URL);
 
         } catch (e) {
-            logger.error(e.message)
-            res.status(400).json(e.message)
+            next(e);
         }
     }
 
@@ -55,7 +54,7 @@ class UserController {
         try {
 
         } catch (e) {
-            
+            next(e);
         }
     }
 
@@ -66,7 +65,7 @@ class UserController {
             return res.json(users);
 
         } catch (e) {
-            logger.error(e.message);
+            next(e);
         }
     }
 }

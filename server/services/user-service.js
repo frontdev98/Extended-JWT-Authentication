@@ -4,7 +4,8 @@ const uuid   = require('uuid')
 const mailService = require('./mail-service')
 const tokenService = require('./token-service')
 const UserDto = require('../dtos/user-dto')
-const logger = require('../logger');
+const logger = require('../logger')
+const ApiError = require('../exceptions/api-error')
 
 const client = new PrismaClient()
 
@@ -17,7 +18,7 @@ class UserService {
         })
 
         if (candidate !== null) {
-            throw new Error(`User with email ${email} already exists.`)
+            throw ApiError.BadRequest(`User with email ${email} already exists.`)
         }
 
         // hash password 
@@ -57,7 +58,7 @@ class UserService {
         })
 
         if (user === null) {
-            throw new Error("Incorrect activation link.")
+            throw ApiError.BadRequest("Incorrect activation link.")
         }
 
         await client.userModel.update({
