@@ -92,6 +92,16 @@ class UserService {
 
         return {...tokens, user: userDto}
     }
+
+    async logout(refreshToken) {
+        const token = await tokenService.removeToken(refreshToken)
+
+        if (!token) {
+            throw ApiError.BadRequest('User has no login.')
+        }
+        
+        return token
+    }
 }
 
 module.exports = new UserService();
