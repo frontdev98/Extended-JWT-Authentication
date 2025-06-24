@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
-const { PrismaClient } = require('../generated/prisma/client')
+const { PrismaClient } = require('../generated/prisma/client');
+const ApiError = require('../exceptions/api-error');
 
 const client = new PrismaClient();
 
@@ -36,6 +37,24 @@ class TokenService {
         })
 
         return tokenData;
+    }
+
+    async removeToken(refreshToken) {
+        const tokenData = await client.tokenModel.findFirst({
+            where: {
+                refreshToken
+            }
+        })
+
+        if (!tokenData) {
+            return null
+        }
+
+        return await client.tokenModel.delete({
+            where: {
+                id: tokenData.id
+            }
+        })
     }
 }
 
