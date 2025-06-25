@@ -22,7 +22,25 @@ class TokenService {
         }
     }
 
-    async saveToken(userId, refreshToken) {
+    validateAccessToken(token) {
+        try {
+            const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET)
+            return userData
+        } catch (e) {
+            return null
+        }
+    }
+
+    validateRefreshToken(token) {
+        try {
+            const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET)
+            return userData
+        } catch (e) {
+            return null
+        }
+    }
+
+    async saveToken(userId, refreshToken) {        
         const tokenData = await client.tokenModel.upsert({
             where: {
                 userModelId: userId
@@ -55,6 +73,16 @@ class TokenService {
                 id: tokenData.id
             }
         })
+    }
+
+    async findToken(refreshToken) {
+        const tokenData = await client.tokenModel.findFirst({
+            where: {
+                refreshToken
+            }
+        })
+
+        return tokenData
     }
 }
 
