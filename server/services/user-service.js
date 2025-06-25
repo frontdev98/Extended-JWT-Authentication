@@ -102,6 +102,40 @@ class UserService {
         
         return token
     }
+
+    async refresh(refreshToken) {
+        // 1. Check user has refreshToken
+        if (!refreshToken) {
+            throw ApiError.UnauthorizedError();
+        }
+
+        // 2. Make sure that refreshToken is valid
+        const userData = tokenService.validateRefreshToken(refreshToken)
+
+        // 3. Find corresponding token at database
+        const tokenFromDb = await tokenService.findToken(refreshToken)
+
+        if (!userData || !tokenFromDb) {
+            // if user or tokens are not found at database,
+            // return error 401
+            throw ApiError.UnauthorizedError()
+        }
+
+        // 3. Get info about user to build tokens with fresh user data
+        const user = await client.userModel.findUnique({
+            where: {
+                id: userData.id
+            }
+        })
+
+        // 4. Generate token pair and save these to database
+        const userDto = new UserDto(user)
+        const tokens = tokenService.generateTokens({...userDto})
+        await tokenService.saveToken(userDto.id, tokens.refreshToken)
+
+        // 5. Return tokens and dto
+        return {...tokens, user: userDto}
+    }
 }
 
 module.exports = new UserService();
