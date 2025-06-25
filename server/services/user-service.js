@@ -136,6 +136,11 @@ class UserService {
         // 5. Return tokens and dto
         return {...tokens, user: userDto}
     }
+
+    async getAllUsers() {
+        const users = await client.userModel.findMany()
+        return users
+    }
 }
 
 module.exports = new UserService();

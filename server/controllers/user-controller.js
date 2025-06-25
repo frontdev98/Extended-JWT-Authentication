@@ -89,9 +89,8 @@ class UserController {
 
     async getUsers(req, res, next) {
         try {
-            const users = await client.userModel.findMany();
-            logger.info(`Requested userlist: ${users}`);
-            return res.json(users);
+            const users = await userService.getAllUsers()
+            res.json({users})
 
         } catch (e) {
             next(e);
