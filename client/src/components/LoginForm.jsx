@@ -1,8 +1,10 @@
-import {React, useState} from 'react';
+import {React, useContext, useState} from 'react';
+import { Context } from '../main';
 
-export function LoginForm() {
+export default function LoginForm() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const {store} = useContext(Context)
 
     return <>
         <div>
@@ -12,8 +14,8 @@ export function LoginForm() {
             <input type="password" placeholder="Password" value={password} 
                 onChange={event => setPassword(event.target.value)} />      {/* Set password at state when event onchange occurs */}
 
-            <button>Login</button>
-            <button>Registration</button>
+            <button onClick={() => store.login(email, password)}>Login</button>
+            <button onClick={() => store.registration(email, password)}>Registration</button>
         </div>
     </>
 }
