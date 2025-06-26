@@ -11,7 +11,7 @@ const $api = axios.create({
 // - add header "Authorization" with payload (fetch that from localStorage)
 $api.interceptors.request.use((requestConfig) => {
     requestConfig.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
-    return token;
+    return requestConfig;    
 })
 
 export default $api;
