@@ -10,7 +10,7 @@ const $api = axios.create({
 // intercepter for each request from the client:
 // - add header "Authorization" with payload (fetch that from localStorage)
 $api.interceptors.request.use((requestConfig) => {
-    requestConfig.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+    requestConfig.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
     return requestConfig;    
 })
 
