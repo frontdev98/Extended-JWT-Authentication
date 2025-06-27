@@ -22,6 +22,8 @@ Modules:
 - [express](https://www.npmjs.com/package/express)
 - [express-validator](https://www.npmjs.com/package/express-validator)
 - [react](https://www.npmjs.com/package/react)
+- [mobx](https://www.npmjs.com/package/mobx)
+- [mobx-react-lite](https://www.npmjs.com/package/mobx-react-lite)
 - [prisma](https://www.prisma.io/)
 - [nodemon](https://www.npmjs.com/package/nodemon)
 - [nodemailer](https://www.npmjs.com/package/nodemailer)
