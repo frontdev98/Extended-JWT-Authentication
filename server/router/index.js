@@ -13,7 +13,7 @@ router.post('/registration',
 router.post('/login', controller.login);
 router.get('/logout', controller.logout);
 router.get('/activate/:link', controller.activate);
-router.post('/refresh', controller.refresh)
+router.get('/refresh', controller.refresh)
 router.get('/users', authMiddleware, controller.getUsers);                     // only for registered users
 
 module.exports = router;
