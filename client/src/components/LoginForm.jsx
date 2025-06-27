@@ -1,7 +1,8 @@
 import {React, useContext, useState} from 'react';
 import { Context } from '../main';
+import { observer } from 'mobx-react-lite';
 
-export default function LoginForm() {
+export default observer(function LoginForm() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const {store} = useContext(Context)
@@ -14,8 +15,13 @@ export default function LoginForm() {
             <input type="password" placeholder="Password" value={password} 
                 onChange={event => setPassword(event.target.value)} />      {/* Set password at state when event onchange occurs */}
 
-            <button onClick={() => store.login(email, password)}>Login</button>
+            {
+                store.isAuth ? 
+                <button onClick={() => store.logout()}>Logout</button> :
+                <button onClick={() => store.login(email, password)}>Login</button>   
+            }
+            
             <button onClick={() => store.registration(email, password)}>Registration</button>
         </div>
     </>
-}
+})
